@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bio | purrplee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<script>
+document.querySelectorAll("a").forEach(link => {
+    if(link.hostname === window.location.hostname) {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            document.body.style.opacity = 0;
+            setTimeout(() => {
+                window.location = this.href;
+            }, 300);
+        });
+    }
+});
+
+window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    if(window.scrollY > 10) {
+        header.style.background = "rgba(0,0,0,0.6)";
+        header.style.backdropFilter = "blur(15px)";
+    } else {
+        header.style.background = "rgba(255,255,255,0.05)";
+        header.style.backdropFilter = "blur(10px)";
+    }
+});
+</script>
+
+
+
+<body>
+
+<header>
+    <div class="logo">purrplee</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/bio/" class="active">Bio</a>
+        </nav>
+</header>
+
+<main class="container center">
+    <div class="glass-card">
+        <h1>Bio</h1>
+        <p>Coming soon.</p>
+        <div class="placeholder-avatar"></div>
+    </div>
+</main>
+
+<footer>
+    <p>footer</p>
+</footer>
+
+</body>
+
+</html>
