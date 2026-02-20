@@ -6,7 +6,10 @@
 
 body {
     opacity: 0;
-    animation: pageFade 0.5s ease forwards;
+    animation:
+        pageFade 0.5s ease forwards,
+        gradientShift 12s ease infinite;
+
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -14,7 +17,6 @@ body {
     color: white;
     background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e);
     background-size: 400% 400%;
-    animation: gradientShift 12s ease infinite;
 }
 
 
@@ -159,4 +161,14 @@ footer {
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(#9f7aea, #6b46c1);
     border-radius: 10px;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(159,122,234,0.25), transparent 60%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
