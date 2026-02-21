@@ -5,25 +5,85 @@
     <title>Home | purrplee</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 
 <body>
 
-<header>
-    <div class="logo">purrplee</div>
-        <nav>
-            <a href="/" class="active">Home</a>
-            <a href="/bio/">Bio</a>
-        </nav>
+<header class="site-header">
+    <div class="logo">fsploit.xyz (Home)</div>
+
+    <nav class="nav-container">
+        <a href="/" class="active">Home</a>
+        <a href="/bio/">Bio</a>
+    </nav>
 </header>
 
-<main class="container center">
-    <div class="glass-card">
-        <h1>Welcome</h1>
-        <p>welcome to peak :3</p>
-        <button class="primary-btn">Coming Soon</button>
+<main>
+
+<section class="hero">
+    <h1 class="hero-title">
+        purrplee
+        <span class="typing"></span>
+    </h1>
+
+    <p class="hero-sub">
+        silly • games • content creator
+    </p>
+
+    <div class="hero-buttons">
+        <a href="/bio/" class="primary-btn">About Me</a>
+        <a href="#projects" class="secondary-btn">Projects</a>
     </div>
+
+    <div class="scroll-indicator"></div>
+</section>
+
+<section class="section">
+    <h2>Discord Status</h2>
+
+    <div class="discord-status">
+        <img id="discord-avatar" src="" alt="Discord Avatar">
+        <div>
+            <p id="discord-username">Loading...</p>
+            <p id="discord-activity">Fetching status...</p>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="images/iw8.jpg" alt="IW8-Mod">
+            </div>
+
+            <div class="project-content">
+                <h3>IW8-Mod</h3>
+                <p>MW2019 Revival Project</p>
+                <a href="https://discord.gg/demonware" target="_blank" class="discord-btn">
+                    Join Discord
+                </a>
+            </div>
+        </div>
+</section>
+
+<section class="section">
+    <h2>Now Playing...</h2>
+
+    <div class="spotify-card">
+        <iframe style="border-radius:12px"
+            src="https://open.spotify.com/playlist/1bAbCSoclZ0oeFe27yTrAJ?si=6a9465044de9405d"
+            width="100%" height="152"
+            frameBorder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+    </div>
+</section>
+
 </main>
 
 <footer>
@@ -53,6 +113,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    fetch("https://api.lanyard.rest/v1/users/1350993715727962163")
+    .then(res => res.json())
+    .then(data => {
+        const d = data.data;
+
+        document.getElementById("discord-avatar").src =
+            `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${d.discord_user.avatar}.png`;
+
+        document.getElementById("discord-username").textContent =
+            d.discord_user.username + "#" + d.discord_user.discriminator;
+
+        if (d.activities.length > 0) {
+            document.getElementById("discord-activity").textContent =
+                d.activities[0].name;
+        } else {
+            document.getElementById("discord-activity").textContent =
+                d.discord_status;
+        }
+    });
+
     window.addEventListener("scroll", () => {
         const header = document.querySelector("header");
         if(window.scrollY > 10) {
@@ -63,6 +143,47 @@ document.addEventListener("DOMContentLoaded", () => {
             header.style.backdropFilter = "blur(10px)";
         }
     });
+
+    const faders = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    }, { threshold: 0.2 });
+
+    faders.forEach(fader => observer.observe(fader));
+
+    const typingElement = document.querySelector(".typing");
+
+    const words = [" silly :3", " test", " another test"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentWord.substring(0, charIndex--);
+        } else {
+            typingElement.textContent = currentWord.substring(0, charIndex++);
+        }
+
+        if (!isDeleting && charIndex === currentWord.length + 1) {
+            setTimeout(() => isDeleting = true, 1000);
+        } 
+        else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
+
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+    }
+
+    typeEffect();
 
 });
 </script>
