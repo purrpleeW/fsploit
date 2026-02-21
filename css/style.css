@@ -45,18 +45,6 @@ body::before {
     font-size: 20px;
 }
 
-.nav-container {
-    display: flex;
-    gap: 50px;
-}
-
-.nav-container a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-}
-
 .nav-container a::after {
     content: "";
     position: absolute;
@@ -195,18 +183,6 @@ nav a.active::after {
     margin-bottom: 25px;
 }
 
-
-.primary-btn {
-    padding: 12px 28px;
-    border-radius: 30px;
-    border: none;
-    background: linear-gradient(135deg, #9f7aea, #6b46c1);
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-    font-size: 14px;
-}
-
 .primary-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(159, 122, 234, 0.4);
@@ -257,19 +233,42 @@ footer {
     height: 300px;
     background: radial-gradient(circle, rgba(159,122,234,0.25), transparent 60%);
     pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+    transform: translate(-50%,-50%);
+    z-index:-1;
 }
 
 .hero {
-    min-height: 70vh;
-    padding-top: 60px;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 20px;
+    gap: 15px;
+    position: relative;
+    background: url("../images/bg-hero.jpg") center/cover no-repeat fixed;
+}
+
+.hero::before {
+    content:"";
+    position: absolute;
+    inset:0;
+    background: rgba(10,10,20,0.6);
+    z-index:0;
+}
+
+.hero-title, .hero-sub, .hero-buttons {
+    position: relative;
+    z-index:1;
+}
+
+.hero-buttons a {
+    animation: floatButton 3s ease-in-out infinite;
+}
+
+@keyframes floatButton {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 .hero-title {
@@ -288,16 +287,6 @@ footer {
     margin-top: 30px;
     display: flex;
     gap: 20px;
-}
-
-.secondary-btn {
-    padding: 12px 28px;
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
 }
 
 .secondary-btn:hover {
@@ -376,18 +365,6 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
-
-.discord-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #5865F2, #9f7aea);
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s ease;
 }
 
 .discord-btn:hover {
@@ -552,15 +529,16 @@ main {
     to { transform: rotate(360deg); }
 }
 
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: 0.8s ease;
+.fade-in { 
+    opacity:0; 
+    transform:translateY(20px); 
+    transition:0.8s ease-out; 
 }
 
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+
+.fade-in.visible { 
+    opacity:1; 
+    transform:translateY(0); 
 }
 
 .project-card {
@@ -572,10 +550,118 @@ main {
     transform: translateY(-6px) scale(1.02);
 }
 
-.spotify-card {
-    max-width: 600px;
-    margin: 30px auto 0;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(30,215,96,0.2);
+.discord-badge {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(114,137,218,0.3);
 }
+
+.discord-status, .spotify-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 30px;
+    width: 420px;
+    transition: 0.3s ease, transform 0.3s ease;
+}
+
+.discord-status:hover, .spotify-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 35px rgba(159,122,234,0.35);
+}
+
+.discord-status img, .spotify-card iframe {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.status-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav-container a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+.nav-container a:hover {
+    background: rgba(159,122,234,0.15);
+}
+
+.nav-container a::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg,#9f7aea,#6b46c1);
+    transform: translateX(-50%);
+    transition: 0.3s ease;
+}
+
+.nav-container a:hover::after,
+.nav-container a.active::after {
+    width: 70%;
+}
+
+.project-grid {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+}
+
+.project-card {
+    width:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-radius:16px;
+    overflow:hidden;
+    transition:0.4s ease;
+    cursor:pointer;
+}
+
+.project-card img {
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.primary-btn, .secondary-btn, .discord-btn {
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    padding:12px 28px;
+    text-decoration:none;
+    display:inline-block;
+    transition:0.3s ease;
+}
+
+.primary-btn { background: linear-gradient(135deg,#9f7aea,#6b46c1); color:white; }
+.secondary-btn { background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); }
+.discord-btn { background: linear-gradient(135deg,#5865F2,#9f7aea); color:white; }
+
+footer { backdrop-filter: blur(10px); background:rgba(255,255,255,0.05); text-align:center; padding:20px; font-size:14px; opacity:0.7; }
