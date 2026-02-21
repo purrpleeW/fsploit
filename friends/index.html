@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friends | purrplee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="friends-page">
+    <div class="friends-bg-overlay"></div>
+
+<header class="site-header">
+    <div class="logo">fsploit.xyz (Friends)</div>
+    <nav class="nav-container">
+        <a href="/">Home</a>
+        <a href="/bio/">Bio</a>
+        <a href="/friends/" class="active">Friends</a>
+    </nav>
+</header>
+
+<main>
+
+<section class="hero small-hero">
+    <h1 class="hero-title">Friends</h1>
+    <p class="hero-sub">some links to friends sites and profiles (placeholder header for now?)</p>
+</section>
+
+<section class="section">
+    <div class="friends-grid">
+        <div class="friend-card">
+            <img src="../images/friend1.jpg" alt="Friend 1">
+            <h3>ZeroMods</h3>
+            <p>Developer over at IW8-Mod • ZEROOOO</p>
+            <a href="https://zeromods.xyz" target="_blank" class="friend-btn">
+                Visit Page
+            </a>
+        </div>
+
+        
+        <div class="friend-card">
+            <img src="../images/friend2.jpg" alt="Friend 2">
+            <h3>luxploit.net</h3>
+            <p>Developer over at IW8-Mod • Friend</p>
+            <a href="https://luxploit.net" target="_blank" class="friend-btn">
+                Visit Page
+            </a>
+        </div>
+
+        <div class="friend-card">
+            <img src="../images/friend3.jpg" alt="Friend 2">
+            <h3>Swarce_</h3>
+            <p>fren :3</p>
+            <a href="https://swarce.straw.page" target="_blank" class="friend-btn">
+                Visit Page
+            </a>
+        </div>
+
+        <div class="friend-card">
+            <img src="../images/friend4.jpg" alt="Friend 2">
+            <h3>AceAdz</h3>
+            <p>Friend • IW8-Mod Helper</p>
+            <a href="https://x.com/AceAdz_" target="_blank" class="friend-btn">
+                Visit X Profile
+            </a>
+        </div>
+
+        <div class="friend-card">
+            <img src="../images/friend5.jpg" alt="Friend 2">
+            <h3>TheBlaster</h3>
+            <p>Friend • IW8-Mod Helper</p>
+            <a href="https://x.com/TheBlaster041" target="_blank" class="friend-btn">
+                Visit X Profile
+            </a>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>much love, purrplee 💜</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const glow = document.createElement("div");
+    glow.classList.add("cursor-glow");
+    document.body.appendChild(glow);
+
+    document.addEventListener("mousemove", e => {
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+    });
+
+    document.querySelectorAll("a").forEach(link => {
+        if (link.hostname === window.location.hostname) {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+
+                const main = document.querySelector("main");
+                main.style.transition = "opacity 0.3s ease";
+                main.style.opacity = "0";
+
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 300);
+            });
+        }
+    });
+
+    window.addEventListener("load", () => {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+    });
+
+    window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if(window.scrollY > 10) {
+            header.style.background = "rgba(0,0,0,0.6)";
+            header.style.backdropFilter = "blur(15px)";
+        } else {
+            header.style.background = "rgba(255,255,255,0.05)";
+            header.style.backdropFilter = "blur(10px)";
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
