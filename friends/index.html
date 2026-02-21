@@ -96,7 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelectorAll("a").forEach(link => {
-        if (link.hostname === window.location.hostname) {
+        if (
+            link.hostname === window.location.hostname &&
+            !link.hash
+        ) {
             link.addEventListener("click", function(e) {
                 e.preventDefault();
 
@@ -111,10 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load", () => { // fixed???
         const preloader = document.getElementById("preloader");
-        preloader.style.opacity = "0";
-        preloader.style.visibility = "hidden";
+        if (preloader) {
+            preloader.style.opacity = "0";
+            preloader.style.visibility = "hidden";
+        }
     });
 
     window.addEventListener("scroll", () => {
