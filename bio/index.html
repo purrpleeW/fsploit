@@ -117,8 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
             link.addEventListener("click", function(e) {
                 e.preventDefault();
 
-                document.body.style.transition = "opacity 0.3s ease";
-                document.body.style.opacity = "0";
+                const main = document.querySelector("main");
+                main.style.transition = "opacity 0.3s ease";
+                main.style.opacity = "0";
 
                 setTimeout(() => {
                     window.location.href = this.href;
