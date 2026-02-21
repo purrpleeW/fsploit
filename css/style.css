@@ -859,3 +859,7 @@ body.friends-page::before {
 .friend-btn:hover {
     transform: scale(1.05);
 }
+
+html {
+    scroll-behavior: smooth;
+}
