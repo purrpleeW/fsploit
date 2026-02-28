@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { // basically all of this is shared between pages so i don't have to paste it in every page
 
 
     const glow = document.createElement("div"); // cursor glow
@@ -99,5 +99,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         typeEffect();
     }
+
+    document.addEventListener("mousemove", (e) => {
+        const glow = document.querySelector(".floating-glow");
+        if (!glow) return;
+
+        let x = (window.innerWidth / 2 - e.clientX) / 50;
+        let y = (window.innerHeight / 2 - e.clientY) / 50;
+
+        glow.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    });
+
+    const elements = document.querySelectorAll(".fade-up");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    });
+
+    elements.forEach(el => observer.observe(el));
+    
 
 });

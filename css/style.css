@@ -863,3 +863,70 @@ body.friends-page::before {
 html {
     scroll-behavior: smooth;
 }
+
+body.music-page {
+    position: relative;
+    min-height: 100vh;
+    background: url("../images/music-bg.jpg") center/cover no-repeat fixed;
+}
+
+.music-grid {
+    max-width: 900px;
+    margin: 40px auto;
+    display: grid;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.album-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 40px rgba(140, 100, 255, 0.3);
+}
+
+.album-card {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.spotify-embed {
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.spotify-embed:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 40px rgba(140, 100, 255, 0.3);
+}
+
+.album-description {
+    margin-top: 20px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+
+
