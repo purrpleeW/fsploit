@@ -2,20 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home | purrplee</title>
+    <title>purrplee</title>
+    <meta name="description" content="purrplee - content creator, cod enjoyer, cat poster. Home of IW8-Mod and Project Lumen.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💜</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
-    <div class="ambient-orb orb1"></div>
-    <div class="ambient-orb orb2"></div>
-<header class="site-header">
-    <div class="logo">fsploit.xyz (Home)</div>
 
+<div id="preloader">
+    <div class="loader-content">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+</div>
+
+<div class="ambient-orb orb1"></div>
+<div class="ambient-orb orb2"></div>
+
+<header class="site-header">
+    <div class="logo">fsploit<span>.xyz</span></div>
     <nav class="nav-container">
-        <a href="/">Home</a>
+        <a href="/" class="active">Home</a>
         <a href="/bio/">Bio</a>
         <a href="/friends/">Friends</a>
         <a href="/music/">Music</a>
@@ -23,67 +32,70 @@
 </header>
 
 <main>
+    <section class="hero fade-in">
+        <div class="hero-content">
+            <p class="hero-eyebrow">hey, i'm</p>
 
+            <h1 class="hero-title">purrplee</h1>
 
-<section class="hero fade-in">
-    <h1 class="hero-title">
-        purrplee <span class="typing"></span>
-    </h1>
-    <p class="hero-sub">silly • games • content creator</p>
-    <div class="hero-buttons">
-        <a href="/bio/" class="primary-btn">About Me</a>
-        <a href="#projects" class="secondary-btn">Projects</a>
-    </div>
-    <div class="scroll-indicator"></div>
-</section>
+            <p class="hero-sub">
+                I occasionally do productive things (i'm lying)
+            </p>
 
-
-<section class="section fade-in">
-    <h2>Now Playing & Discord</h2>
-    <div class="status-row">
-        <div class="discord-status">
-            <img 
-                src="https://lanyard-profile-readme.vercel.app/api/1350993715727962163"
-                alt="Discord Status"
-            />
-        </div>
-
-        <div class="spotify-card">
-            <iframe 
-                style="border-radius:12px" 
-                src="https://open.spotify.com/embed/playlist/1bAbCSoclZ0oeFe27yTrAJ?utm_source=generator" 
-                width="100%" height="152" frameborder="0" 
-                allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-            </iframe>
-        </div>
-    </div>
-</section>
-
-
-<section id="projects" class="section fade-in">
-    <h2>Projects</h2>
-    <div class="project-grid">
-        
-        <div class="project-card">
-            <img src="images/iw8.jpg" alt="IW8-Mod">
-            <div class="project-content">
-                <h3>IW8-Mod</h3>
-                <p>MW2019 Revival Project</p>
-                <a href="https://discord.gg/demonware" target="_blank" class="discord-btn">Join Discord</a>
+            <div class="hero-buttons">
+                <a href="/bio/" class="primary-btn">About Me</a>
+                <a href="#projects" class="secondary-btn">See My Projects</a>
             </div>
         </div>
 
-        
-        <div class="project-card">
-            <img src="images/lumen.jpg" alt="Project Lumen">
-            <div class="project-content">
-                <h3>Project Lumen</h3>
-                <p>MWIII and BOCW Revival</p>
-                <a href="https://discord.gg/CTTHVTeSjH" target="_blank" class="discord-btn">Join Discord</a>
+        <div class="scroll-indicator" aria-hidden="true"></div>
+    </section>
+    <section class="section fade-in">
+        <h2>Now Playing & Discord</h2>
+        <div class="status-row">
+            <div class="discord-status">
+                <img
+                    src="https://lanyard-profile-readme.vercel.app/api/1350993715727962163"
+                    alt="Discord status"
+                />
+            </div>
+
+            <div class="spotify-card">
+                <iframe
+                    style="border-radius:12px"
+                    src="https://open.spotify.com/embed/playlist/1bAbCSoclZ0oeFe27yTrAJ?utm_source=generator"
+                    width="100%" height="152" frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section id="projects" class="section fade-in">
+        <h2>Projects</h2>
+        <div class="project-grid">
+
+            <div class="project-card">
+                <img src="images/iw8.jpg" alt="IW8-Mod">
+                <div class="project-content">
+                    <h3>IW8-Mod</h3>
+                    <p>MW2019 Revival Project</p>
+                    <a href="https://discord.gg/demonware" target="_blank" class="discord-btn">Join Discord</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="images/lumen.jpg" alt="Project Lumen">
+                <div class="project-content">
+                    <h3>Project Lumen</h3>
+                    <p>MWIII and BOCW Revival</p>
+                    <a href="https://discord.gg/CTTHVTeSjH" target="_blank" class="discord-btn">Join Discord</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 </main>
 

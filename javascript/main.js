@@ -1,126 +1,137 @@
-document.addEventListener("DOMContentLoaded", () => { // basically all of this is shared between pages so i don't have to paste it in every page
+document.addEventListener("DOMContentLoaded", () => {
+    const cursorGlow = document.createElement("div");
+    cursorGlow.className = "cursor-glow";
+    document.body.appendChild(cursorGlow);
 
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
 
-    const glow = document.createElement("div"); // cursor glow
-    glow.classList.add("cursor-glow");
-    document.body.appendChild(glow);
+    document.addEventListener("mousemove", (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
 
-    document.addEventListener("mousemove", e => {
-        glow.style.left = e.clientX + "px";
-        glow.style.top = e.clientY + "px";
+        cursorGlow.style.left = `${mouseX}px`;
+        cursorGlow.style.top = `${mouseY}px`;
     });
 
+    const floatingGlow = document.querySelector(".floating-glow");
 
-    document.querySelectorAll("a").forEach(link => {
+    if (floatingGlow) {
+        document.addEventListener("mousemove", (event) => {
+            const x = (window.innerWidth / 2 - event.clientX) / 50;
+            const y = (window.innerHeight / 2 - event.clientY) / 50;
+
+            floatingGlow.style.transform =
+                `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+        });
+    }
+
+    const header = document.querySelector(".site-header");
+
+    const updateHeader = () => {
+        if (!header) return;
+
+        header.classList.toggle("scrolled", window.scrollY > 20);
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    document.querySelectorAll("a").forEach((link) => {
+        const isInternal =
+            link.hostname === window.location.hostname;
+
+        const isHashLink = link.hash !== "";
+        const opensNewTab = link.target !== "";
+        const isDownload = link.hasAttribute("download");
+
         if (
-            link.hostname === window.location.hostname &&
-            !link.hash &&
-            !link.target
+            isInternal &&
+            !isHashLink &&
+            !opensNewTab &&
+            !isDownload
         ) {
-            link.addEventListener("click", function(e) {
-                e.preventDefault();
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
 
                 const main = document.querySelector("main");
-                if (main) {
-                    main.style.transition = "opacity 0.3s ease";
-                    main.style.opacity = "0";
+
+                if (!main) {
+                    window.location.href = link.href;
+                    return;
                 }
+
+                main.style.transition = "opacity 220ms ease";
+                main.style.opacity = "0";
 
                 setTimeout(() => {
-                    window.location.href = this.href;
-                }, 300);
+                    window.location.href = link.href;
+                }, 220);
             });
         }
     });
 
+    const hidePreloader = () => {
+        const preloader = document.getElementById("preloader");
 
-    const header = document.querySelector("header"); 
-    if (header) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 10) {
-                header.style.background = "rgba(0,0,0,0.6)";
-                header.style.backdropFilter = "blur(15px)";
-            } else {
-                header.style.background = "rgba(255,255,255,0.05)";
-                header.style.backdropFilter = "blur(10px)";
-            }
+        if (!preloader) return;
+
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+
+        setTimeout(() => {
+            preloader.remove();
+        }, 600);
+    };
+
+    if (document.readyState === "complete") {
+        hidePreloader();
+    } else {
+        window.addEventListener("load", hidePreloader, {
+            once: true
         });
     }
 
+    const revealElements = document.querySelectorAll(
+        ".fade-in, .fade-up"
+    );
 
-    window.addEventListener("load", () => { // preloader for visibility stuff
-        const preloader = document.getElementById("preloader");
-        if (preloader) {
-            preloader.style.opacity = "0";
-            preloader.style.visibility = "hidden";
-        }
-    });
+    if (revealElements.length) {
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
 
-
-
-    const faders = document.querySelectorAll(".fade-in"); // fade-in scroll animation
-    if (faders.length > 0) {
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
-                }
-            });
-        }, { threshold: 0.2 });
+                    observer.unobserve(entry.target);
+                });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
 
-        faders.forEach(fader => observer.observe(fader));
+        revealElements.forEach((element) => {
+            revealObserver.observe(element);
+        });
     }
 
+    const rainButton = document.getElementById("rain-toggle");
 
+    if (rainButton) {
+        rainButton.addEventListener("click", () => {
+            document.body.classList.toggle("rain-enabled");
 
-    const typingElement = document.querySelector(".typing"); // homepage typing animation
-    if (typingElement) {
-        const words = [" silly :3", " games", " content creator"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+            const enabled =
+                document.body.classList.contains("rain-enabled");
 
-        function typeEffect() {
-            const currentWord = words[wordIndex];
-            typingElement.textContent = currentWord.substring(
-                0,
-                isDeleting ? charIndex-- : charIndex++
+            rainButton.setAttribute(
+                "aria-pressed",
+                String(enabled)
             );
 
-            if (!isDeleting && charIndex === currentWord.length + 1) {
-                setTimeout(() => isDeleting = true, 1000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-            }
-
-            setTimeout(typeEffect, isDeleting ? 50 : 100);
-        }
-
-        typeEffect();
-    }
-
-    document.addEventListener("mousemove", (e) => {
-        const glow = document.querySelector(".floating-glow");
-        if (!glow) return;
-
-        let x = (window.innerWidth / 2 - e.clientX) / 50;
-        let y = (window.innerHeight / 2 - e.clientY) / 50;
-
-        glow.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
-    });
-
-    const elements = document.querySelectorAll(".fade-up");
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-            }
+            rainButton.textContent = enabled ? "☔" : "🌧";
         });
-    });
-
-    elements.forEach(el => observer.observe(el));
-    
-
+    }
 });
